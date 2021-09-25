@@ -1,0 +1,223 @@
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>SVE.ONE - Dashboard - Edit <%= pageinfo.title %></title>
+  <%- include("./blocks/header.ejs") %>
+  <!-- <script src="https://unpkg.com/vue@2.6.*"></script> -->
+  <!-- <script src="https://unpkg.com/vue-prism-editor"></script> -->
+  <link rel="stylesheet" href="https://unpkg.com/vue-prism-editor/dist/prismeditor.min.css" />
+  <script src="https://unpkg.com/prismjs/prism.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/prismjs/themes/prism-tomorrow.css" />
+  <style type="text/css" media="screen">
+    #editor {
+        min-height:600px;
+    }
+</style>
+</head>
+
+<body>
+ <%- include("./blocks/dashsidebar.ejs") %>
+  <div class="main-content" id="panel">
+    <% if(alert.exist === true){ %>
+         <div class="alert alert-<%= alert.type %> mb-0 text-center" style="border-radius:0;"><%- alert.text %></div>
+         <% } %>
+ <%- include("./blocks/dashnavbar.ejs") %>
+    <form class="mb-0" action="/pages/edit/<%= pageinfo.link %>" method="POST">
+    <div class="header pb-6 d-flex align-items-center bg-gradient-default" style="min-height: 300px;">
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h1 class="display-2 text-white titletxt">Edit <b><%= pageinfo.title %></b></h1>
+            <button type="submit" id="sbmtbtn" class="btn btn-success btn-sm btn-block mb-5 text-white btn-loader-edit" data-toggle="tooltip" data-html="true" title="<b>Save shortcuts</b><br />Ctrl + S<br />⌘ + S">Save Changes <i class="fas fa-save"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--6">
+
+      <div class="row">
+        <div class="col-md-8 order-xl-1" id="editorcol">
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">HTML Editor</h3>
+                  <small class="mb-0">You can change your edior's theme in your <a href="https://sve.one/settings">settings</a>.</small>
+                </div>
+                <div class="col-4">
+                <!-- <button type="button" class="close" id="expandeditor"><i class="fas fa-expand-alt"></i></button>
+                <button type="button" class="close" style="display:none;" id="deexpandeditor"><i class="fas fa-compress-alt"></i></button> -->
+               </div>
+              </div>
+            </div>
+            <div class="card-body p-0" style="color:transparent; background:url('https://discord.mx/UygsKdW6Co.gif'), #ffffff; background-repeat: no-repeat !important; background-position: center !important; background-size: cover !important;">
+              <div id="editor"><%= html %></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 order-xl-1" id="settingscard">
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">Page Details</h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label for="form_phone">Page Title</label>
+                          <input autocomplete="off" type="text" name="title" maxlength="30" class="form-control" value="<%= pageinfo.title %>" required />
+                      </div>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label for="form_email">Link</label>
+                          <div class="input-group-append">
+                            <span style="border-radius:5px 0 0 5px; border-right:none; border-left:1px solid #DEE2E6;" class="input-group-text">https://</span>
+                          <input autocomplete="off" style="border-radius:0;" type="text" maxlength="15" class="form-control" aria-describedby="appdomain" value="<%= pageinfo.link %>" readonly />
+                            <span style="border-radius:0 5px 5px 0;" class="input-group-text" id="appdomain">.sve.one</span>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="form_phone">Description</label>
+                        <textarea style="max-height:100px;min-height:100px;" type="text" name="desc" maxlength="500" class="form-control" required><%= pageinfo.description %></textarea>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group mb-0">
+                      <span class="switch switch-sm">
+                        <input type="checkbox" name="private" value="private" class="switch" id="switch-sm" <% if(pageinfo.private === true){ %> checked <% } %>>
+                        <label for="switch-sm">Private Page</label>
+                      </span>
+                    </div>
+                  </div>
+                  <textarea style="position:fixed; top:0; left:-1000000px; opacity:0;" name="html" id="testtxt"></textarea>
+              </div>
+            </div>
+          </div>
+</form>
+          <% if (user.staff && pageinfo.owner != user.id){ %>
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">Page Owner</h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="form_phone">Owner Username</label>
+                        <input autocomplete="off" type="text" class="form-control" value="<%= pageowner.username %>#<%= pageowner.discriminator %>" readonly />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                      <div class="form-group">
+                          <label for="form_phone">Owner ID</label>
+                          <input autocomplete="off" type="text" class="form-control" value="<%= pageinfo.owner %>" readonly />
+                      </div>
+                  </div>
+            </div>
+          </div>
+          <% } %>
+
+
+        </div>
+
+      </div>
+    </div>
+<%- include('./blocks/dashfooter.ejs') %>
+<script src="//cdnjs.cloudflare.com/ajax/libs/mousetrap/1.4.6/mousetrap.min.js"></script>
+</div>
+<script>$('.nvi-mypages').addClass('active');
+
+$( ".btn-loader-edit" ).click(function() {
+  $( ".btn-loader-edit" ).html(`Loading... <i class="fas fa-spin fa-spinner"></i>`);
+  setTimeout(function(){$( ".btn-loader-edit" ).html('Save Changes <i class="fas fa-save"></i>');},2300);
+});
+
+setTimeout(function(){$('.successalert').hide()},2300);
+</script>
+<script>
+$(window).bind('keydown', function(event) {
+    if (event.ctrlKey || event.metaKey) {
+        switch (String.fromCharCode(event.which).toLowerCase()) {
+        case 's':
+            event.preventDefault();
+            $("#sbmtbtn").click();
+            break;
+        case 'f':
+            // event.preventDefault();
+            // alert('ctrl-f');
+            break;
+        case 'g':
+            // event.preventDefault();
+            // alert('ctrl-g');
+            break;
+        }
+    }
+});
+</script>
+<script src="/assets/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="/assets/src-noconflict/ext-language_tools.js"></script>
+<script>
+ace.require("ace/ext/language_tools");
+var editor = ace.edit("editor");
+editor.session.setMode("ace/mode/html");
+editor.setTheme("ace/theme/<%= data && data.editortheme ? data.editortheme : "ambiance" %>");
+// enable autocompletion and snippets
+editor.setOptions({
+    enableBasicAutocompletion: true,
+    // enableSnippets: true,
+    enableLiveAutocompletion: false
+});
+editor.gotoLine(1);
+
+
+
+setInterval(function() {
+  var mytext = editor.getValue();
+  $('#testtxt').val(mytext)
+}, 80);
+
+// $( "#expandeditor" ).click(function() {
+//   $("#editorcol").removeClass('col-md-8');
+//   $("#editorcol").addClass('col-md-12');
+//   $("#editor").css('height', '100vh');
+//   $('html, body').animate({
+//     scrollTop: $("#editor").offset().top
+//   }, 500);
+//   $("#deexpandeditor").show();
+//   $("#expandeditor").hide();
+//   editor.resize();
+// });
+//
+// $( "#deexpandeditor" ).click(function() {
+//   $("#editorcol").removeClass('col-md-12');
+//   $("#editorcol").addClass('col-md-8');
+//   $("#editor").css('height', '600px');
+//   $('html, body').animate({
+//     scrollTop: $("html").offset().top
+//   }, 500);
+//   $("#deexpandeditor").hide();
+//   $("#expandeditor").show();
+//   editor.resize();
+// });
+</script>
+<style>
+#editorcol, #editor, #settingscard {
+  transition:0.5s;
+}
+</style>
+</body>
+</html>

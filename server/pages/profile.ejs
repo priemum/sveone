@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="alternate" type="application/json+oembed" href="https://embeds.ga/oembed/?name=&url=&providername=SVE.ONE&providerurl=https%3A%2F%2Fsve.one">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>SVE.ONE - <%= theuser.username %>#<%= theuser.discriminator %></title>
+  <meta name="theme-color" content="#876EB8">
+  <meta name="og:site_name" content="SVE.ONE">
+  <meta content="<%= theuser.username %>#<%= theuser.discriminator %>" property="og:title">
+  <meta name="twitter:title" content="<%= theuser.username %>#<%= theuser.discriminator %>">
+  <meta name="twitter:description" content="<%= data != null && data.aboutMe != "" ? data.aboutMe : "About Me not set..." %>">
+  <meta name="twitter:image" content="<%- theuser.displayAvatarURL({ format: 'png', dynamic: true, size: 4096 }) %>">
+  <meta name="og:image" content="<%- theuser.displayAvatarURL({ format: 'png', dynamic: true, size: 4096 }) %>">
+  <meta content="<%= data != null && data.aboutMe != "" ? data.aboutMe : "About Me not set..." %>" property="og:description">
+  <%- include("./blocks/header.ejs") %>
+</head>
+
+<body class="bg-white">
+  <%- include("./blocks/navbar.ejs") %>
+  <div class="main-content pb-5">
+    <div class="container">
+      <div class="row">
+<!----------------------------------------------------------------------------->
+
+        <div class="col-md-3 mainbar">
+          <div>
+          <img style="width:100%; border-radius:100%; background:#F2F2F2; margin-top:10px; z-index:2000; box-shadow: 0 0 1rem 0 rgba(136, 152, 170, .15);" src="<%- theuser.displayAvatarURL({ format: 'png', dynamic: true, size: 4096 }) %>" />
+          <h2 class="mt-1 mb-0"><b><%= theuser.username %></b><small>#<%= theuser.discriminator %></small></h2>
+          <%- theuser.staff === true ? `<img data-toggle="tooltip" title="Staff" class="pbadge" draggable="false" src="https://discord.mx/YIJyCYTwOo.png" /> <img data-toggle="tooltip" title="Developer" class="pbadge" draggable="false" src="https://discord.mx/aXTj4XFg8N.png" />` : "" %>
+          <p class="mt-0" id="aboutme"><%= data != null ? data.aboutMe : "" %></p>
+        </div>
+        </div>
+
+<!----------------------------------------------------------------------------->
+
+        <div class="col-md-9 pt-3">
+          <% if(alert.exist === true){ %>
+        <div class="alert alert-<%= alert.type %> mb-3 text-center"><%- alert.text %></div>
+        <% } %>
+          <h1><b><%= theuser.username %></b>'s Pages</h1>
+          <hr class="mt-0" />
+
+          <div class="row">
+
+          <% for(let i = 0; i < data.userpages.length; i++){ %>
+            <div class="col-md-4">
+              <div class="card">
+                <h5 class="card-header"><%= data.userpages[i].title %></h5>
+                <div class="card-body">
+                <%= data.userpages[i].description %>
+                </div>
+                <div class="card-footer p-2">
+                  <div class="btn-group btn-block">
+                 <a class="btn btn-primary btn-sm text-white" href="https://<%= data.userpages[i].link %>.sve.one/" target="_blank">View <i class="fas fa-external-link-alt"></i></a><a class="btn btn-secondary btn-sm" href="https://sve.one/pages/info/<%= data.userpages[i].link %>">Info</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+     <% } %>
+        <% if(data.userpages.length === 0){ %>
+            <div class="offset-md-1 col-md-10">
+              <div class="card text-center">
+                <h4 class="card-header">No Pages</h4>
+                <div class="card-body">
+                  <p><b><%= theuser.username %></b> has no pages or they have privated all their pages.</p>
+                </div>
+              </div>
+            </div>
+          <% } %>
+
+
+
+
+          </div>
+
+        </div>
+
+<!----------------------------------------------------------------------------->
+
+
+      </div>
+    </div>
+  </div>
+ <%- include("./blocks/footer.ejs") %>
+ <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script><script>twemoji.parse(document.getElementById("aboutme"));</script>
+
+
+</body>
+<script>
+$('#navbar-main').addClass('bg-gradient-default');
+</script>
+<style>
+body {
+  padding-top:85px;
+}
+.pbadge {
+  height:28px;
+}
+.emoji {height:18px !important;}
+.mainbar {
+  /* border-left:1px solid #E5E5E5; */
+  /* border-right:1px solid #E5E5E5; */
+  text-align:center;
+  height:calc(100vh - 85px);
+  display: flex;
+  align-items: center;
+  border-radius:0 0 6px 6px;
+  box-shadow: 0 0 2rem 0 rgba(136, 152, 170, .15);
+  }
+.mainbar div {width:100%;}
+
+@media only screen and (max-width: 991px) {
+  body {
+    padding-top:72px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .mainbar {
+    height:auto !important;
+    min-height:150px;
+    position:static;
+  }
+  .mainbar img {
+    max-width:150px;
+  }
+}
+</style>
+</html>

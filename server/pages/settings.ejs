@@ -1,0 +1,202 @@
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>SVE.ONE - Dashboard - Settings</title>
+<%- include("./blocks/header.ejs") %>
+</head>
+
+<body>
+<%- include("./blocks/dashsidebar.ejs") %>
+  <div class="main-content" id="panel">
+<% if(alert.exist === true){ %>
+        <div class="alert alert-<%= alert.type %> mb-0 text-center" style="border-radius:0;"><%- alert.text %></div>
+        <% } %>
+   <%- include("./blocks/dashnavbar.ejs") %>
+    <div class="header pb-6 d-flex align-items-center bg-gradient-default" style="min-height: 300px;">
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h1 class="display-2 text-white">Your Settings</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--6">
+      <div class="row">
+        <div class="col-xl-12 order-xl-1">
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">Edit Settings</h3>
+                </div>
+                <div class="col-4 text-right">
+                  <button id="submit" class="btn btn-sm btn-success">Save <i class="fas fa-save"></i></button>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Discord Username</label>
+                        <input type="text" id="input-username" class="form-control" value="<%= user.username%>#<%= user.discriminator %>" readonly>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Email address</label>
+                         <input type="email" style="display: none;" id="input-email" class="form-control" value="<%= user.email %>" readonly>
+                        <input type="email" id="input-email1" class="form-control" value="<%= user.email %>" readonly>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">First name</label>
+                        <input type="text" name="firstname" id="input-first-name" class="form-control" placeholder="First name" value="<%= data ? data.firstName : `` %>">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Last name</label>
+                        <input type="text" name="lastname" id="input-last-name" class="form-control" placeholder="Last name" value="<%= data ? data.lastName : `` %>">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <h6 class="heading-small text-muted mb-4">HTML Editor</h6>
+                <div class="pl-lg-4">
+                <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label">Editor Theme</label>
+                    <select id="themeselector" class="form-control">
+                      <option <%= data.editortheme && data.editortheme === "ambiance" ? "selected" : "" %> value="ambiance">Ambiance</option>
+                      <option <%= data.editortheme && data.editortheme === "chaos" ? "selected" : "" %> value="chaos">Chaos</option>
+                      <option <%= data.editortheme && data.editortheme === "chrome" ? "selected" : "" %> value="chrome">Chrome</option>
+                      <option <%= data.editortheme && data.editortheme === "clouds" ? "selected" : "" %> value="clouds">Clouds</option>
+                      <option <%= data.editortheme && data.editortheme === "clouds_midnight" ? "selected" : "" %> value="clouds_midnight">Clouds Midnight</option>
+                      <option <%= data.editortheme && data.editortheme === "colbalt" ? "selected" : "" %> value="colbalt">Colbalt</option>
+                      <option <%= data.editortheme && data.editortheme === "crimson_editor" ? "selected" : "" %> value="crimson_editor">Crimson Editor</option>
+                      <option <%= data.editortheme && data.editortheme === "dawn" ? "selected" : "" %> value="dawn">Dawn</option>
+                      <option <%= data.editortheme && data.editortheme === "dracula" ? "selected" : "" %> value="dracula">Dracula</option>
+                      <option <%= data.editortheme && data.editortheme === "dreamweaver" ? "selected" : "" %> value="dreamweaver">Dreamweaver</option>
+                      <option <%= data.editortheme && data.editortheme === "eclipse" ? "selected" : "" %> value="eclipse">Eclipse</option>
+                      <option <%= data.editortheme && data.editortheme === "github" ? "selected" : "" %> value="github">Github</option>
+                      <option <%= data.editortheme && data.editortheme === "gob" ? "selected" : "" %> value="gob">Gob</option>
+                      <option <%= data.editortheme && data.editortheme === "gruvbox" ? "selected" : "" %> value="gruvbox">Gruvbox</option>
+                      <option <%= data.editortheme && data.editortheme === "idle_fingers" ? "selected" : "" %> value="idle_fingers">Idle Fingers</option>
+                      <option <%= data.editortheme && data.editortheme === "iplastic" ? "selected" : "" %> value="iplastic">Iplastic</option>
+                      <option <%= data.editortheme && data.editortheme === "katzenmilch" ? "selected" : "" %> value="katzenmilch">Katzenmilch</option>
+                      <option <%= data.editortheme && data.editortheme === "kr_theme" ? "selected" : "" %> value="kr_theme">Kr Theme</option>
+                      <option <%= data.editortheme && data.editortheme === "Kuroir" ? "selected" : "" %> value="Kuroir">Kurior</option>
+                      <option <%= data.editortheme && data.editortheme === "merbivore" ? "selected" : "" %> value="merbivore">Merbivore</option>
+                      <option <%= data.editortheme && data.editortheme === "merbivore_soft" ? "selected" : "" %> value="merbivore_soft">Merbivore Soft</option>
+                      <option <%= data.editortheme && data.editortheme === "mono_industrial" ? "selected" : "" %> value="mono_industrial">Mono Industrial</option>
+                      <option <%= data.editortheme && data.editortheme === "monokai" ? "selected" : "" %> value="monokai">Monokai</option>
+                      <option <%= data.editortheme && data.editortheme === "nord_dark" ? "selected" : "" %> value="nord_dark">Nord Dark</option>
+                      <option <%= data.editortheme && data.editortheme === "pastel_on_dark" ? "selected" : "" %> value="pastel_on_dark">Pastel On Dark</option>
+                      <option <%= data.editortheme && data.editortheme === "solarized_dark" ? "selected" : "" %> value="solarized_dark">Solarized Dark</option>
+                      <option <%= data.editortheme && data.editortheme === "solarized_light" ? "selected" : "" %> value="solarized_light">Solarized Light</option>
+                      <option <%= data.editortheme && data.editortheme === "sqlserver" ? "selected" : "" %> value="sqlserver">Sqlserver</option>
+                      <option <%= data.editortheme && data.editortheme === "terminal" ? "selected" : "" %> value="terminal">Terminal</option>
+                      <option <%= data.editortheme && data.editortheme === "textmate" ? "selected" : "" %> value="textmate">Textmate</option>
+                      <option <%= data.editortheme && data.editortheme === "tomorrow" ? "selected" : "" %> value="tomorrow">Tomorrow</option>
+                      <option <%= data.editortheme && data.editortheme === "tomorrow_night" ? "selected" : "" %> value="tomorrow_night">Tomorrow Night</option>
+                      <option <%= data.editortheme && data.editortheme === "tomorrow_night_blue" ? "selected" : "" %> value="tomorrow_night_blue">Tomorrow Night Blue</option>
+                      <option <%= data.editortheme && data.editortheme === "tomorrow_night_bright" ? "selected" : "" %> value="tomorrow_night_bright">Tomorrow Night Bright</option>
+                      <option <%= data.editortheme && data.editortheme === "tomorrow_night_eighties" ? "selected" : "" %> value="tomorrow_night_eighties">Tomorrow Night 80's</option>
+                      <option <%= data.editortheme && data.editortheme === "twilight" ? "selected" : "" %> value="twilight">Twilight</option>
+                      <option <%= data.editortheme && data.editortheme === "vibrant_ink" ? "selected" : "" %> value="vibrant_ink">Vibrant Ink</option>
+                      <option <%= data.editortheme && data.editortheme === "xcode" ? "selected" : "" %> value="xcode">Xcode</option>
+                    </select>
+                  </div>
+                </div>
+
+              <div class="col-md-6">
+                <div id="editor"><%= `           <!-- Editor Preview -->\n<h1 class="header" id="text">Lorem Ipsum</h1>\n<script>function DoThing() {alert("AshMW is cool");}</script>\n<style>.header{font-size:20px;} #text{color:#FF0078 !important;}</style>` %></div>
+            </div>
+            </div>
+            </div>
+                <hr class="my-4" />
+                <h6 class="heading-small text-muted mb-4">About me</h6>
+                <div class="pl-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label">About Me</label>
+                    <textarea rows="4" class="form-control" id="about" name="about" placeholder="A few words about you ..."><%= data ? data.aboutMe : `` %></textarea>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<%- include("./blocks/dashfooter.ejs") %>
+<script>$('.nvi-settings').addClass('active')</script>
+                        <script>
+$(document).ready(function() {
+document.getElementById("input-email1").value = obfuscate_email(document.getElementById("input-email1").value)
+})
+                        function obfuscate_email(email)
+{
+   let em = email.split("@")
+
+let name  = em.slice(0,em.length-1).join("@")
+let len = Math.floor(name.length)
+    return '*'.repeat(len) + "@" + em[em.length-1]
+}
+$("#submit").click(function () {
+  let data = {
+    lastname: $("#input-last-name").val() || null,
+    firstname: $("#input-first-name").val() || null,
+    about: $("#about").val() || null,
+    email: $("#input-email").val(),
+    theme: $("#themeselector").val()
+  }
+
+  $.ajax({
+      type: "POST",
+      url: window.location.href,
+      dataType: "json",
+      contentType: 'application/json',
+      data: JSON.stringify(data),
+      success: function (resp) {
+      if(resp.status === "OK"){
+        window.location.href = window.location.href;
+      }
+    },
+    error: function (resp) {
+    }
+  });
+});
+</script>
+<script src="/assets/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+ace.require("ace/ext/language_tools");
+var editor = ace.edit("editor");
+editor.session.setMode("ace/mode/html");
+editor.setTheme("ace/theme/<%= data && data.editortheme ? data.editortheme : "ambiance" %>");
+// enable autocompletion and snippets
+editor.setOptions({
+    enableBasicAutocompletion: true,
+    enableSnippets: true,
+    enableLiveAutocompletion: false
+});
+
+$( "#themeselector" ).change(function() {
+  editor.setTheme("ace/theme/" + $(this).val());
+});
+</script>
+<style>
+#editor{height:75px;}
+</style>
+</body>
+
+</html>

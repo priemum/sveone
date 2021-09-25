@@ -1,0 +1,81 @@
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>SVE.ONE - Home</title>
+  <meta name="theme-color" content="#876EB8">
+  <meta content="SVE.ONE" property="og:title">
+  <meta name="twitter:title" content="SVE.ONE">
+  <meta name="twitter:description" content="Free, simple, one-page sites for anything.">
+  <meta name="twitter:image" content="https://discord.mx/LhufsC09XM.png">
+  <meta name="og:image" content="https://discord.mx/LhufsC09XM.png">
+  <meta content="Free, simple, one-page sites for anything." property="og:description">
+  <%- include("./blocks/header.ejs") %>
+</head>
+
+<body class="bg-white">
+  <%- include("./blocks/navbar.ejs") %>
+  <div class="main-content">
+    <div class="header py-7 py-lg-8 pt-lg-9">
+      <div class="container">
+        <div class="header-body text-center mb-7">
+          <div class="row justify-content-center">
+            <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+              <% if(user){ %>
+              <h1 class="text-white">Welcome <%= user.username %>!</h1>
+              <p class="text-lead text-white">Free, simple, one-page sites for anything.</p>
+              <a href="/dashboard" class="btn btn-neutral" style="width:calc(100% - 50px);">Dashboard</a>
+              <% }else{ %>
+              <h1 class="text-white">Welcome to SVE.ONE!</h1>
+              <p class="text-lead text-white">Free, simple, one-page sites for anything.</p>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="separator separator-bottom separator-skew zindex-100">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+      </div>
+    </div>
+    <div class="container mt-2 pb-5">
+      <div class="row justify-content-center">
+        <% if(alert.exist === true){ %>
+        <div class="alert alert-<%= alert.type %> mb-0 text-center"><%- alert.text %></div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+<%- include("./blocks/footer.ejs") %>
+<style>
+.header {
+    background: linear-gradient(270deg, #6274dc, #9e6c9b, #6274dc, #9e6c9b);
+    background-size: 800% 800%;
+
+    -webkit-animation: AnimationName 10s ease infinite;
+    -moz-animation: AnimationName 10s ease infinite;
+    animation: AnimationName 10s ease infinite;
+}
+
+@-webkit-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes AnimationName {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+</style>
+</body>
+
+</html>

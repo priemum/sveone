@@ -1,0 +1,67 @@
+<nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <img src="https://discord.mx/XGFD0IwSeA.png">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse navbar-custom-collapse collapse" id="navbar-collapse">
+      <div class="navbar-collapse-header">
+        <div class="row">
+          <div class="col-6 collapse-brand">
+            <a href="dashboard.html">
+              <img src="https://discord.mx/rX4dWdPIl5.png">
+            </a>
+          </div>
+          <div class="col-6 collapse-close">
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a href="/" class="nav-link">
+            <span class="nav-link-inner--text">Home</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="/pages/search" class="nav-link">
+            <span class="nav-link-inner--text">Public Pages</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav align-items-lg-center ml-lg-auto">
+        <% if(user){ %>
+        <li class="nav-item dropdown">
+
+          <a class="nvuserbtn btn btn-neutral dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><b><%= user.username %></b>#<%= user.discriminator %></a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="https://sve.one/dashboard">Dashboard</a>
+            <a class="dropdown-item" href="https://sve.one/user/<%= user.id %>">Profile</a>
+            <% if (user.staff){ %>
+<a class="dropdown-item" href="/admin/pages">Admin</a>
+<% } %>
+            <a class="dropdown-item text-danger" href="https://sve.one/logout">Logout</a>
+          </div>
+        </li>
+        <% }else{ %>
+        <li class="nav-item loginbtnlol">
+            <a class="nvuserbtn btn btn-neutral" style="background:#7289DA; color:#ffffff; border-color:#7289DA; align-items:middle;" href="/login">Login <img height="22" src="https://img.icons8.com/material/24/ffffff/discord-logo--v1.svg"/></a>
+        </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+<style>
+@media only screen and (max-width: 991px) {
+  .nvuserbtn {
+    width:100%;
+    box-shadow:none !important;
+  }
+}
+</style>

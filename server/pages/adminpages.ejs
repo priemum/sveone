@@ -1,0 +1,137 @@
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>SVE.ONE - Dashboard - Admin manage</title>
+ <%- include("./blocks/header.ejs") %>
+</head>
+
+<body>
+ <%- include("./blocks/dashsidebar.ejs") %>
+  <div class="main-content" id="panel">
+    <% if(alert.exist === true){ %>
+         <div class="alert alert-<%= alert.type %> mb-0 text-center" style="border-radius:0;"><%- alert.text %></div>
+         <% } %>
+ <%- include("./blocks/dashnavbar.ejs") %>
+    <div class="header pb-6 d-flex align-items-center bg-gradient-dark" style="min-height: 300px;">
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <h1 class="display-2 text-white">Manage pages</h1>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid mt--6">
+      <div class="row">
+
+      <% for(let i = 0; i < pageinfo.pages.length; i++){ %>
+        <div class="col-md-3">
+          <div class="card">
+            <h5 class="card-header"><%= pageinfo.pages[i].title %> <button class="close" data-toggle="modal" data-target="#deleteMod" data-link="<%= pageinfo.pages[i].link %>"><i class="fas fa-trash"></i></button></h5>
+            <div class="card-body">
+            <%= pageinfo.pages[i].description %>
+            </div>
+            <div class="card-footer p-2">
+              <div class="btn-group btn-block">
+             <a class="btn btn-primary btn-sm text-white" href="/pages/edit/<%= pageinfo.pages[i].link %>">Edit <i class="fas fa-pen"></i></a><a class="btn btn-secondary btn-sm" href="https://<%= pageinfo.pages[i].link %>.sve.one/" target="_blank">View <i class="fas fa-external-link-alt"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+ <% } %>
+    <% if(pageinfo.size === 0){ %>
+        <div class="offset-md-3 col-md-6">
+          <div class="card text-center">
+            <h4 class="card-header">No Pages</h4>
+            <div class="card-body">
+              <p>You have no pages! Click <a class="badge badge-white text-dark" style="background:#FAFAFA; text-transform: capitalize;">New Page <i class="fas fa-plus-circle"></i></a> above to create one.</p>
+            </div>
+          </div>
+        </div>
+      <% } %>
+
+
+
+
+      </div>
+   <div class="modal fade bg-gradient-danger" id="deletemod" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Delete Page</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form class="mb-0" id="formfordeleting" method="POST">
+              <div class="modal-body pb-0">
+                <div class="form-group">
+                    <label for="form_phone">Enter <code class="text-danger" id="wheretitleis"></code> to delete</label>
+                    <input autocomplete="off" type="text" name="title" maxlength="30" class="form-control" value="" id="placeholderthingy" required />
+
+                </div>
+              </div>
+              <div class="modal-footer">
+                <a class="btn btn-secondary" data-dismiss="modal">Cancel <i arial-hidden="true" class="fas fa-ban"></i></a>
+                <button type="submit" class="btn btn-danger btn-loader-delete" id="buttondeletething" disabled>Delete <i arial-hidden="true" class="fas fa-trash"></i></button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+
+        <%- include("./blocks/dashfooter.ejs") %>
+      <script>
+       function get(name, url) {
+	if (!url) url = window.location.href;
+		name = name.replace(/[\[\]]/g, '\\$&');
+	var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+		results = regex.exec(url);
+	if (!results) return null;
+	if (!results[2]) return '';
+	return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+
+
+$('#deletemod').on('show.bs.modal', function (event) {
+  let button = $(event.relatedTarget)
+  let recipient = button.data('link')
+    let modal = $(this)
+
+ modal.find('#wheretitleis').text(recipient)
+ modal.find('#placeholderthingy').attr("placeholder", recipient)
+ modal.find("#formfordeleting").attr("action", `/pages/delete/${recipient}`)
+ let input = modal.find('#placeholderthingy')
+$(input).keyup(function() {
+ if(input.val().toString() !== recipient.toString()){
+ modal.find('#buttondeletething').prop("disabled", true)
+ }else{
+  modal.find('#buttondeletething').prop("disabled", false)
+ }
+})
+})
+      </script>
+<script>$('.nvi-managepages').addClass('active'); $('.navbar-top').removeClass('bg-gradient-default'); $('.navbar-top').addClass('bg-gradient-dark');
+$( ".btn-loader-delete" ).click(function() {
+  $( ".btn-loader-delete" ).html(`Loading... <i class="fas fa-spin fa-spinner"></i>`);
+  setTimeout(function(){$( ".btn-loader-delete" ).html('Delete <i arial-hidden="true" class="fas fa-trash"></i>');},2000);
+});
+$( ".btn-loader-create" ).click(function() {
+  $( ".btn-loader-create" ).html(`Loading... <i class="fas fa-spin fa-spinner"></i>`);
+  setTimeout(function(){$( ".btn-loader-create" ).html('Create <i arial-hidden="true" class="fas fa-plus-circle"></i>');},2000);
+});
+
+</script>
+<style>
+.close:hover {color:#F75676 !important;}
+.close {font-size:18px; cursor:pointer;}
+</style>
+</body>
+
+
+</html>

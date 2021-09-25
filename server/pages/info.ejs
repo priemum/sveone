@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>SVE.ONE - Page Info - <%= pageinfo.title %></title>
+  <meta name="theme-color" content="#876EB8">
+  <meta content="<%= pageinfo.title %>" property="og:title">
+  <meta name="twitter:title" content="<%= pageinfo.title %>">
+  <meta name="twitter:description" content="<%= pageinfo.description %>">
+  <link rel="alternate" type="application/json+oembed" href="https://embeds.ga/api/oembed.php?author_name=<%= encodeURIComponent(pageowner.username + '#' + pageowner.discriminator); %>&author_url=https%3A%2F%2Fsve.one%2Fuser%2F<%= pageinfo.owner %>%2F&provider_name=SVE.ONE&provider_url=https%3A%2F%2Fsve.one%2F">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="http://image.thum.io/get/width/2000/viewportWidth/1700/maxage/3/noanimate/https://<%= pageinfo.link %>.sve.one">
+  <meta name="og:image" content="http://image.thum.io/get/width/2000/viewportWidth/1700/maxage/3/noanimate/https://<%= pageinfo.link %>.sve.one">
+  <meta content="<%= pageinfo.description %>" property="og:description">
+  <%- include("./blocks/header.ejs") %>
+</head>
+
+<body class="bg-white">
+  <%- include("./blocks/navbar.ejs") %>
+  <div class="main-content">
+    <div class="header bg-gradient-default py-7 py-lg-8 pt-lg-9">
+      <div class="container">
+        <div class="header-body text-center mb-7">
+          <div class="row justify-content-center">
+            <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+              <h1 class="text-white"><%= pageinfo.title %></h1>
+              <p class="text-lead text-white"><%= pageinfo.description %></p>
+            </div>
+        </div>
+      </div>
+      </div>
+      <div class="separator separator-bottom separator-skew zindex-100">
+        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
+        </svg>
+      </div>
+    </div>
+    <div class="container mt--8 pb-5">
+      <!-- <div class="card card-body text-center p-2" style="font-size:20px;"><b><%= pageinfo.title %></b></div> -->
+      <div class="row">
+
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-body p-3">
+              <a class="btn btn-success btn-sm btn-block text-white" href="https://<%= pageinfo.link %>.sve.one">Visit Page</a>
+              <a class="btn btn-danger btn-sm btn-block text-white" href="https://ashmw.com/contact/">Report Page</a>
+              <% if(user != null  && (pageinfo.owner === user.id)) { %>
+              <a class="btn btn-dark btn-sm btn-block text-white" data-toggle="collapse" href="#datacol">Page Analytics</a>
+              <% } %>
+            </div>
+          </div>
+          <div class="card">
+            <h5 class="card-header"><b>Page owner</b></h5>
+            <div class="card-body p-3 text-center">
+              <img style="width:126px; border-radius:100%; background:#F2F2F2;" src="<%- pageowner.displayAvatarURL({ format: 'png', dynamic: true, size: 4096 }) %>" />
+              <h2 class="mb-0"><%= pageowner.username %><small>#<%= pageowner.discriminator %></small></h2>
+              <a class="btn btn-sm btn-white btn-block text-dark" href="https://sve.one/user/<%= pageinfo.owner %>">Profile Page</a>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-9">
+          <div class="collapse show" id="datacol">
+          <div class="card card-body p-0 bg-dark" id="preview">
+            <div class="wrapper vcenter-item">
+              <div id="home">
+                <a class="btn btn-primary btn-sm text-white mt-4 pl-5 pr-5" id="kkman">Load Preview</a><br />
+                <small class="text-danger" style="font-size:11px;">Never input passwords or emails on SVE.ONE pages.</small>
+              </div>
+            </div>
+          </div>
+        </div>
+          <% if(user != null  && (pageinfo.owner === user.id)) { %>
+          <div class="collapse" id="datacol">
+          <div class="card bg-default">
+            <div class="card-header bg-transparent">
+              <div class="row align-items-center">
+                <div class="col">
+                  <h5 class="h3 text-white mb-0">Page Analytics <span class="text-danger">(COMING SOON)</span></h5>
+                  <h6 class="text-light text-uppercase ls-1 mb-0"><b>Total Views:</b> &nbsp;&nbsp;<%= pageinfo.views %></h6>
+                  <h6 class="text-light text-uppercase ls-1 mb-1"><b>Total Likes:</b> &nbsp;&nbsp;&nbsp;69</h6>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <!-- Chart -->
+              <div class="chart">
+                <!-- Chart wrapper -->
+                <canvas id="page-views-chart" class="chart-canvas"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
+
+      </div>
+    </div>
+
+  </div>
+  <style>
+    .wrapper {
+        min-height: 500px;
+    }
+    .vcenter-item {
+        display: flex;
+        align-items: center;
+    }
+    #home {
+    	text-align: center;
+      width:100%;
+    }
+    .pframe {
+      border:none;
+      border-radius:5px;
+      height:500px;
+      background:#ffffff;
+    }
+    #preview {
+      background-repeat: no-repeat !important;
+      background-position: center !important;
+      background-size: cover !important;
+    }
+    .charttab {
+      background:#5E72E4 !important;
+      color:#ffffff !important;
+      opacity:0.3;
+    }
+    .charttab.active {
+      background:#5E72E4 !important;
+      color:#ffffff !important;
+      opacity:1;
+    }
+</style>
+ <%- include("./blocks/footer.ejs") %>
+<script>
+var SalesChart = (function() {
+
+  // Variables
+
+  var $chart = $('#page-views-chart');
+
+
+  // Methods
+
+  function init($chart) {
+
+    var salesChart = new Chart($chart, {
+      type: 'line',
+      options: {
+        scales: {
+          yAxes: [{
+            gridLines: {
+              lineWidth: 1,
+              color: Charts.colors.gray[900],
+              zeroLineColor: Charts.colors.gray[900]
+            },
+            ticks: {
+              callback: function(value) {
+                if (!(value % 10)) {
+                  return value;
+                }
+              }
+            }
+          }]
+        },
+        tooltips: {
+          callbacks: {
+            label: function(item, data) {
+              var label = data.datasets[item.datasetIndex].label || '';
+              var yLabel = item.yLabel;
+              var content = '';
+
+              if (data.datasets.length > 1) {
+                content += label;
+              }
+
+              content += yLabel;
+              return content;
+            }
+          }
+        }
+      },
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+
+        datasets: [{
+          label: 'Views: ',
+          backgroundColor: '#EDDF41',
+          borderColor: '#EDDF41',
+          fill: false,
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 60, 0, 0, <%= pageinfo.views %>]
+
+        }, {
+
+          label: 'Likes: ',
+          backgroundColor: '#F91158',
+          borderColor: '#F91158',
+          fill: false,
+          data: [1, 21, 1, 51, 1, 1, 1, 1, 61, 1, 1, <%= pageinfo.views %>]
+        }
+
+      ]
+      }
+    });
+
+    // Save to jQuery object
+
+    $chart.data('chart', salesChart);
+
+  };
+
+
+  // Events
+
+  if ($chart.length) {
+    init($chart);
+  }
+
+})();
+
+
+
+
+$( "#kkman" ).click(function() {
+  $("#preview").removeClass('bg-dark');
+  $("#preview").html('<iframe class="pframe" src="https://<%= pageinfo.link %>.sve.one" />');
+  $("#preview").css('background', "url('https://discord.mx/UygsKdW6Co.gif'), #ffffff");
+});
+<% if(isSubdomain) { %>
+$('#navbar-collapse, .copyright, .navbar-toggler').remove();
+$('.navbar-brand').css('padding-top', '10px')
+$('.navbar-brand').attr('href', 'https://sve.one')
+<% } %>
+</script>
+
+</body>
+
+</html>

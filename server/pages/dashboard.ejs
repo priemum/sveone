@@ -1,0 +1,39 @@
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#876EB8">
+  <meta content="SVE.ONE - Error" property="og:title">
+  <meta name="twitter:title" content="SVE.ONE - Error">
+  <meta name="twitter:description" content="You must be logged in to view this page!">
+  <meta name="twitter:image" content="https://discord.mx/LhufsC09XM.png">
+  <meta name="og:image" content="https://discord.mx/LhufsC09XM.png">
+  <meta content="You must be logged in to view this page!" property="og:description">
+  <title>SVE.ONE - Dashboard</title>
+ <%- include("./blocks/header.ejs") %>
+</head>
+<body>
+ <%- include('./blocks/dashsidebar', { user }) %>
+  <div class="main-content" id="panel">
+   <% if(alert.exist === true){ %>
+        <div class="alert alert-<%= alert.type %> mb-0 text-center" style="border-radius:0;"><%- alert.text %></div>
+        <% } %>
+  <%- include("./blocks/dashnavbar.ejs") %>
+    <div class="header pb-6 d-flex align-items-center bg-gradient-default" style="min-height: calc(100% - 77px<%  if (alert.exist == true){ %> - 62px"; <% } %>">
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Hello <%= user.username %></h1>
+            <p class="text-white mt-0 mb-5">Welcome to your dashboard <%= user.username %>! Here you can manage your settings and pages.</p>
+            <a href="/pages" class="btn btn-neutral">My Pages</a>
+            <a href="/settings" class="btn btn-neutral">Settings</a>
+          </div>
+        </div>
+      </div>
+    </div>
+<%- include("./blocks/dashfooter.ejs") %>
+    <script>$('.nvi-home').addClass('active'); $('footer').hide();</script>
+  </div>
+</body>
+</html>

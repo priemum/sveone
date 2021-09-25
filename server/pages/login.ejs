@@ -1,0 +1,49 @@
+<%- include("./blocks/security.ejs")>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>SVE.ONE - Login</title>
+  <meta name="theme-color" content="#876EB8">
+  <meta content="SVE.ONE - Login" property="og:title">
+  <meta name="twitter:title" content="SVE.ONE - Login">
+  <meta name="twitter:description" content="Create your own page thats all about you or your project!">
+  <meta name="twitter:image" content="https://discord.mx/LhufsC09XM.png">
+  <meta name="og:image" content="https://discord.mx/LhufsC09XM.png">
+  <meta content="Create your own page thats all about you or your project!" property="og:description">
+ <%- include("./blocks/header.ejs")>
+</head>
+
+<body class="bg-gradient-default">
+  <%- include("./blocks/navbar.ejs")>
+  <div class="main-content">
+    <div class="header bg-gradient-default py-7 py-lg-8 pt-lg-9">
+      <div class="separator separator-bottom separator-skew zindex-100">
+      </div>
+    </div>
+    <div class="container mt-0 pb-5">
+       <% if(alert.exist === true){ %>
+        <div class="alert alert-<%= alert.type %> mb-0 text-center"><%= alert.text %></div>
+        <% } %>
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-7">
+          <div class="card bg-secondary border-0 mb-0">
+            <div class="card-header bg-transparent pb-5">
+              <div class="btn-wrapper text-center mt-4">
+                <h3 class="mb-2"><?php if ($_GET['error'] == "true") {echo "<span style='font-weight:800;'>You must be logged in to view that page!</span>";} else {echo "Login with Discord";}?></h3>
+                <a href="/login" class="btn btn-primary btn-icon" style="background:#7289DA;">
+                  <span class="btn-inner--text">Continue to <img height='18px' src='https://discord.mx/o7VZdE1Y2P.svg' /></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <?php include './blocks/footer.php';?>
+  <script>$('footer, .loginbtnlol, .navbar-collapse, .navbar-nav, .navbar-toggler').hide();</script>
+</body>
+
+</html>
