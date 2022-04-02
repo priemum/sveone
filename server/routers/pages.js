@@ -2,7 +2,7 @@ const {
   Router
 } = require("express");
 const {
-  checkAuth
+  checkAuth              
 } = require("@server");
 const fs = require('fs'),
   path = require('path');
